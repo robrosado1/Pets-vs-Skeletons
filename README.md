@@ -17,6 +17,7 @@ Based on the popular tower-defense-style game 'Plants vs Zombies'. Pets are purc
 Everything for the game is handled within it's window(Instructions button which opens modal, Play button to start game, and Music/SFX toggle button). The title of the game will be at the top of the page with my name as creator and personal links will be at the bottom.
 
 [wireframe]: https://github.com/robrosado1/Pets-vs-Skeletons/blob/master/wireframe.png
+![wireframe]
 
 ### Architecture and Technologies
 This project will be made using:
