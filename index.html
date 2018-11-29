@@ -6,10 +6,17 @@
     <title>Pets vs Skeletons</title>
   </head>
   <body>
-    <canvas id="canvas" width="480" height="320"></canvas>
+    <canvas id="canvas" width="480" height="360"></canvas>
 
     <script type="text/javascript">
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
 
+      function draw() {
+
+      }
+      setInterval(draw, 10);
+      // requestAnimationFrame();
     </script>
   </body>
 </html>
