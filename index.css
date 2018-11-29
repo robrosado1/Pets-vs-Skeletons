@@ -1,0 +1,10 @@
+#canvas {
+  border: 3px solid black;
+  margin: 0 auto;
+  padding: 0;
+  background-color: transparent;
+  background-image: url("lawn.png");
+  background-size: 480px 320px;
+  display: block;
+  vertical-align: middle;
+}
