@@ -1,7 +1,7 @@
 
 class Skeleton extends Entity {
-  constructor(width, height, scale, source, pos) {
-    super(width, height, scale, source, pos);
+  constructor(options) {
+    super(options);
     this.health = 10;
     this.frameCount = 0;
     this.walkCycle = [0,1,2,3];
@@ -9,47 +9,48 @@ class Skeleton extends Entity {
     this.currFrameIndex = 0;
     this.speed = 5;
   }
-}
 
-Skeleton.prototype.walk = function () {
-  this.frameCount++;
-  if (this.frameCount < 15) {
+  walk() {
+    this.frameCount++;
+    if (this.frameCount < 15) {
+      window.requestAnimationFrame(this.walk.bind(this));
+      return;
+    }
+    this.frameCount = 0;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.draw(this.walkCycle[this.currFrameIndex], 1, this.pos[0], 0);
+    this.currFrameIndex++;
+
+    if(this.pos[0] >= canvas.width - this.width) {
+      this.speed = 0;
+      window.requestAnimationFrame(this.death.bind(this));
+      return;
+    }
+    this.pos[0] += this.speed;
+    if (this.currFrameIndex >= this.walkCycle.length) {
+      this.currFrameIndex = 0;
+    }
     window.requestAnimationFrame(this.walk.bind(this));
-    return;
   }
-  this.frameCount = 0;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  this.draw(this.walkCycle[this.currFrameIndex], 1, this.pos[0], 0);
-  this.currFrameIndex++;
 
-  if(this.pos[0] >= canvas.width - this.width) {
-    this.speed = 0;
+  death() {
+    this.frameCount++;
+    if (this.frameCount < 10) {
+      window.requestAnimationFrame(this.death.bind(this));
+      return;
+    }
+    this.frameCount = 0;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.draw(this.deathCycle[this.currFrameIndex], 3, this.pos[0], 0);
+    this.currFrameIndex++;
+
+    if (this.currFrameIndex >= this.deathCycle.length) {
+
+    }
     window.requestAnimationFrame(this.death.bind(this));
-    return;
   }
-  this.pos[0] += this.speed;
-  if (this.currFrameIndex >= this.walkCycle.length) {
-    this.currFrameIndex = 0;
-  }
-  window.requestAnimationFrame(this.walk.bind(this));
 }
 
-Skeleton.prototype.death = function () {
-  this.frameCount++;
-  if (this.frameCount < 10) {
-    window.requestAnimationFrame(this.death.bind(this));
-    return;
-  }
-  this.frameCount = 0;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  this.draw(this.deathCycle[this.currFrameIndex], 3, this.pos[0], 0);
-  this.currFrameIndex++;
-
-  if (this.currFrameIndex >= this.deathCycle.length) {
-    
-  }
-  window.requestAnimationFrame(this.death.bind(this));
-}
 
 // step() {
   //   frameCount++;

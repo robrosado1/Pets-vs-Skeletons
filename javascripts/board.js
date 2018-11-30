@@ -3,8 +3,28 @@ let ctx = canvas.getContext("2d");
 // document.body.appendChild(canvas);
 
 // let lastUpdate;
-function gameLoop() {
-  window.requestAnimationFrame(main);
+class Game {
+  constructor() {
+    this.enemies = [];
+    this.pets = [];
+    this.blasts = [];
+
+    this.addEnemies();
+  }
+
+  add(entity) {
+    if (entity instanceof Skeleton) {
+      this.enemies.push(entity);
+    } else if (entity instanceof Pet) {
+      this.pets.push(entity);
+    } else {
+      throw new Error("unknown entity");
+    }
+  }
+
+  addEnemies() {
+    
+  }
 }
 
 let baddies = [];
@@ -13,7 +33,6 @@ while (baddies.length < 5) {
   // debugger
   let skel = new Skeleton(64, 64, 1.25, "images/skeleton_monster.png",
     [0, (64 * baddies.length)]);
-  debugger
   baddies.push(skel);
 }
 
