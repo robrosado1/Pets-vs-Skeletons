@@ -1,23 +1,29 @@
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 
-let baddies = [];
-while (baddies.length < 5) {
-  setTimeout(500);
-  // debugger
-  let skel = new Skeleton(64, 64, 1.25, "images/skeleton_monster.png",
-    [0, (64 * baddies.length)]);
-  baddies.push(skel);
-}
+class Board {
+  constructor(game, context) {
+    this.game = game;
+  }
 
+  start() {
+    this.lastTime = 0;
+    requestAnimationFrame(this.animate.bind(this));
+  }
 
-function main() {
-  baddies.forEach(skelly => {
-    window.requestAnimationFrame(skelly.walk.bind(skelly));
-  });
-  return;
+  animate(time) {
+    const timeDiff = time - this.lastTime;
+
+    this.game.step(timeDiff);
+    this.lastTime = time;
+
+    requestAnimationFrame(this.animate.bind(this));
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  gameLoop();
+
+  const game = new Game();
+  new Board(game).start();
+
 });

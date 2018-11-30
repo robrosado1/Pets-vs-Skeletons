@@ -11,7 +11,7 @@ class Entity {
     this.game = options.game;
   }
 
-  draw(frameRow, frameCol, canvasX, canvasY) {
+  render(frameRow, frameCol, canvasX, canvasY) {
     ctx.drawImage(this.image, frameRow * this.width, frameCol * this.height,
       this.width, this.height, canvasX, canvasY, this.scaledWidth, this.scaledHeight);
   }
