@@ -1,31 +1,5 @@
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
-// document.body.appendChild(canvas);
-
-// let lastUpdate;
-class Game {
-  constructor() {
-    this.enemies = [];
-    this.pets = [];
-    this.blasts = [];
-
-    this.addEnemies();
-  }
-
-  add(entity) {
-    if (entity instanceof Skeleton) {
-      this.enemies.push(entity);
-    } else if (entity instanceof Pet) {
-      this.pets.push(entity);
-    } else {
-      throw new Error("unknown entity");
-    }
-  }
-
-  addEnemies() {
-    
-  }
-}
 
 let baddies = [];
 while (baddies.length < 5) {

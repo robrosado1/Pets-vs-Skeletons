@@ -16,6 +16,10 @@ class Entity {
       this.width, this.height, canvasX, canvasY, this.scaledWidth, this.scaledHeight);
   }
 
+  collisionWith(entity) {
+
+  }
+
   didCollideWith(otherObject) {
     return this.pos[1] === otherObject.pos[1] && (this.pos[0] + this.width) <= otherObject.pos[0];
   }
