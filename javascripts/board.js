@@ -7,16 +7,11 @@ class Board {
   }
 
   start() {
-    this.lastTime = 0;
     requestAnimationFrame(this.animate.bind(this));
   }
 
   animate(time) {
-    const timeDiff = time - this.lastTime;
-
-    this.game.step(timeDiff);
-    this.lastTime = time;
-
+    this.game.step();
     requestAnimationFrame(this.animate.bind(this));
   }
 }
