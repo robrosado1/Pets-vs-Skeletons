@@ -17,11 +17,17 @@ class Entity {
   }
 
   collisionWith(entity) {
-
+    if (this instanceof Skeleton && entity instanceof Blast) {
+      this.dead = true;
+      // return;
+    } else {
+      return false;
+    }
   }
 
-  didCollideWith(otherObject) {
-    return this.pos[1] === otherObject.pos[1] && (this.pos[0] + this.width) <= otherObject.pos[0];
+  didCollideWith(otherEntity) {
+    return (this.pos[0] - (this.width / 2)) <= otherEntity.pos[0] &&
+      (this.pos[1] <= otherEntity.pos[1] && (this.pos[1] + this.height) > otherEntity.pos[1])
   }
 
   remove() {

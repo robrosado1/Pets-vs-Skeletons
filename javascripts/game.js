@@ -8,6 +8,7 @@ class Game {
 
     this.addEnemies();
     this.time = Date.now() / 1000;
+    this.addBlasts();
   }
 
   add(entity) {
@@ -15,6 +16,8 @@ class Game {
       this.enemies.push(entity);
     // } else if (entity instanceof Pet) {
     //   this.pets.push(entity);
+    } else if (entity instanceof Blast) {
+      this.blasts.push(entity);
     } else {
       throw new Error("unknown entity");
     }
@@ -22,11 +25,23 @@ class Game {
 
   addEnemies() {
     if (this.enemies.length < this.NUM_SKELLYS) {
+      const y = this.SKELLY_ROWS[Math.floor(Math.random() * 6)];
+      if (y === undefined) {
+        this.addEnemies();
+        return;
+      }
       this.add(new Skeleton({
         game: this,
-        pos: [0, this.SKELLY_ROWS[Math.floor(Math.random() * 6)]]
+        pos: [canvas.width, y]
       }));
     }
+  }
+
+  addBlasts() {
+    this.add(new Blast({
+      game: this,
+      pos: [this.SKELLY_ROWS[3] + 10, this.SKELLY_ROWS[2] + 20]
+    }));
   }
 
   addPets() {
@@ -43,17 +58,20 @@ class Game {
   }
 
   checkCollisions() {
-    const allEntities = this.allEntities;
+    const allEntities = this.allEntities();
+    // console.log(allEntities);
+    // debugger
     for (let i = 0; i < allEntities.length; i++) {
       for (let j = 0; j < allEntities.length; j++) {
         const ent1 = allEntities[i];
         const ent2 = allEntities[j];
 
-        if (i == j) {
+        if (i === j) {
           continue;
         }
-        if (ent1.didCollideWith(ent2))
+        if (ent1.didCollideWith(ent2)) {
           if (ent1.collisionWith(ent2)) return;
+        }
       }
     }
   }
@@ -77,7 +95,9 @@ class Game {
 
   remove(entity) {
     if (entity instanceof Skeleton) {
+      // debugger
       this.enemies.splice(this.enemies.indexOf(entity), 1);
+      // debugger
     // } else if (entity instanceof Pet) {
     //   this.pets.splice(this.pets.indexOf(entity), 1);
     } else {
@@ -86,6 +106,7 @@ class Game {
   }
 
   step() {
+    this.checkCollisions();
     this.draw();
   }
 
