@@ -1,5 +1,6 @@
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
+Grid();
 
 class Board {
   constructor(game, context) {
@@ -21,7 +22,6 @@ canvas.addEventListener("click", e => {
 })
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const game = new Game();
   new Board(game).start();
 

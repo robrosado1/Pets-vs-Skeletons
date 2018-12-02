@@ -18,3 +18,23 @@ body {
   font-size: 48px;
   font-weight: bold;
 }
+
+.grid {
+  position: absolute;
+  background-color: transparent;
+  width: 480px;
+  height: 360px;
+  z-index: 20px;
+  border: 1px solid black;
+}
+
+.grid td {
+  height: 40px;
+  width: 96px;
+  border: 1px solid black;
+  background-color: inherit;
+}
+
+.grid td:hover {
+  background-color: lightgray;
+}

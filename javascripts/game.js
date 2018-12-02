@@ -104,11 +104,11 @@ class Game {
   }
 
   draw() {
-    const now = Date.now() / 1000;
-    if (now - this.time >= 2) {
-      this.addEnemies();
-      this.time = now;
-    }
+    // const now = Date.now() / 1000;
+    // if (now - this.time >= 2) {
+    //   this.addEnemies();
+    //   this.time = now;
+    // }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.allEntities().forEach(entity => {
       entity.draw();
