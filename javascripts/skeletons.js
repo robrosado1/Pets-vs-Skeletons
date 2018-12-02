@@ -12,11 +12,10 @@ class Skeleton extends Entity {
     this.deathCycle = [0, 1, 2, 3, 4, 5, 6, 7];
     this.currFrameIndex = 0;
     this.speed = 5;
-    this.isDead = false;
   }
 
   draw() {
-    if (this.isDead) {
+    if (this.health < 1) {
       this.death();
     } else {
       this.walk();
@@ -41,6 +40,7 @@ class Skeleton extends Entity {
 
     if (this.pos[0] < -(this.width)) {
       this.remove();
+      this.game.gameOver = true;
     }
   }
 
@@ -57,6 +57,7 @@ class Skeleton extends Entity {
     this.currFrameIndex++;
 
     if (this.currFrameIndex >= this.deathCycle.length) {
+      this.game.score += 10;
       this.remove();
     }
   }

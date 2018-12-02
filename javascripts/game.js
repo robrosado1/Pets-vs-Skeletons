@@ -3,9 +3,10 @@ class Game {
     this.enemies = [];
     this.pets = [];
     this.blasts = [];
-    this.NUM_SKELLYS = 2;
+    this.score = 0;
+    this.NUM_SKELLYS = 10;
     this.ROWS = [0, 1, 2, 3, 4].map(row => row * 64);
-
+    this.gameOver = false;
     this.addEnemies();
     this.time = Date.now() / 1000;
     // this.addBlasts();
@@ -43,7 +44,7 @@ class Game {
     const y = sourceEntity.pos[1];
     this.add(new Blast({
       game: this,
-      pos: [x, y]
+      pos: [x, y + 20]
     }));
   }
 
@@ -133,9 +134,19 @@ class Game {
   }
 
   step() {
+    document.getElementById("scoreboard").innerHTML = `Score: ${this.score}`
+    this.over();
     this.checkProximity();
     this.checkCollisions();
     this.draw();
+  }
+
+  over() {
+    if (this.gameOver) {
+      this.score.freeze;
+      document.getElementById("scoreboard").innerHTML = `Game Over!\nFinal Score: ${this.score}`;
+      return;
+    }
   }
 
 }

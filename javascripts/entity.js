@@ -32,7 +32,7 @@ class Entity {
   collisionWith(otherEntity) {
     if (this instanceof Blast && otherEntity instanceof Skeleton) {
       this.strike = true;
-      otherEntity.isDead = true;
+      otherEntity.health -= this.damage;
     } else if (this instanceof Cat && otherEntity instanceof Skeleton) {
       this.isDead = true;
     } else {
@@ -51,8 +51,14 @@ class Entity {
   }
 
   latMatchWith(otherEntity) {
-    return this.pos[1] <= otherEntity.pos[1] &&
-      (this.pos[1] + this.height) > otherEntity.pos[1];
+    // return this.pos[1] <= otherEntity.pos[1] &&
+    //   (this.pos[1] + this.height) > otherEntity.pos[1];
+    const rowCenterLine = ((this.pos[1] / 64) * 64) + 32;
+    return (this.pos[1] < rowCenterLine &&
+      (this.pos[1] + this.height > rowCenterLine )) &&
+      (otherEntity.pos[1] < rowCenterLine &&
+      (otherEntity.pos[1] + otherEntity.height > rowCenterLine));
+
   }
 
   lonMatchWith(otherEntity) {

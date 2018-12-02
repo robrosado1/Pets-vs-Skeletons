@@ -15,6 +15,10 @@ class Board {
     requestAnimationFrame(this.animate.bind(this));
   }
 }
+canvas.addEventListener("click", e => {
+  console.log(`X: ${e.clientX}`);
+  console.log(`Y: ${e.clientY}`);
+})
 
 document.addEventListener("DOMContentLoaded", () => {
 
