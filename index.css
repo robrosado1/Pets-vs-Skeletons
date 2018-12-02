@@ -19,22 +19,29 @@ body {
   font-weight: bold;
 }
 
-.grid {
+table {
+  border-spacing: 0px;
+}
+
+#grid {
   position: absolute;
+  top: 247px; /* 237 251 */
+  left: 495px;
   background-color: transparent;
-  width: 480px;
-  height: 360px;
-  z-index: 20px;
-  border: 1px solid black;
+  width: 165px;
+  height: 335px;
+  /* border: 1px solid black; */
 }
 
-.grid td {
-  height: 40px;
-  width: 96px;
-  border: 1px solid black;
+#grid td {
+  /* height: 40px;
+  width: 96px; */
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
   background-color: inherit;
+  margin: 0;
 }
 
-.grid td:hover {
+#grid td:hover {
   background-color: lightgray;
 }

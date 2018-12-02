@@ -1,6 +1,6 @@
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
-Grid();
+const grid = document.getElementById("grid");
 
 class Board {
   constructor(game, context) {
@@ -16,13 +16,15 @@ class Board {
     requestAnimationFrame(this.animate.bind(this));
   }
 }
-canvas.addEventListener("click", e => {
-  console.log(`X: ${e.clientX}`);
-  console.log(`Y: ${e.clientY}`);
-})
 
 document.addEventListener("DOMContentLoaded", () => {
   const game = new Game();
+  new Grid(game);
   new Board(game).start();
 
+});
+
+canvas.addEventListener("click", e => {
+  console.log(`X: ${e.clientX}`);
+  console.log(`Y: ${e.clientY}`);
 });

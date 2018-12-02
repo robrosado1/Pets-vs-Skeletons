@@ -7,9 +7,8 @@ class Game {
     this.NUM_SKELLYS = 10;
     this.ROWS = [0, 1, 2, 3, 4].map(row => row * 64);
     this.gameOver = false;
-    this.addEnemies();
+    // this.addEnemies();
     this.time = Date.now() / 1000;
-    // this.addBlasts();
     this.addPets();
   }
 
@@ -27,11 +26,11 @@ class Game {
 
   addEnemies() {
     if (this.enemies.length < this.NUM_SKELLYS) {
-      const y = this.ROWS[Math.floor(Math.random() * 6)];
-      if (y === undefined) {
-        this.addEnemies();
-        return;
-      }
+      const y = this.ROWS[Math.floor(Math.random() * 5)];
+      // if (y === undefined) {
+      //   this.addEnemies();
+      //   return;
+      // }
       this.add(new Skeleton({
         game: this,
         pos: [canvas.width, y]
@@ -48,19 +47,15 @@ class Game {
     }));
   }
 
-  addPets() {
-    for (let i = 0; i < this.ROWS.length; i++) {
-      this.add(new Cat({
-        pos: [-5, this.ROWS[i]],
-        game: this
-      }));
-    }
-    // const pet = new Cat({
-    //   pos: [-5,0],
-    //   game: this
-    // });
-    // this.add(pet);
-    // return pet;
+  addPets(pos) {
+    // if (pos.currentTarget.className === "free") {
+    // }
+    // for (let i = 0; i < this.ROWS.length; i++) {
+    //   this.add(new Cat({
+    //     pos: [-5, this.ROWS[i]],
+    //     game: this
+    //   }));
+    // }
   }
 
   allEntities() {
@@ -143,7 +138,6 @@ class Game {
 
   over() {
     if (this.gameOver) {
-      this.score.freeze;
       document.getElementById("scoreboard").innerHTML = `Game Over!\nFinal Score: ${this.score}`;
       return;
     }
