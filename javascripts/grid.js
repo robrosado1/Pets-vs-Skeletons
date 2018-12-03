@@ -7,10 +7,13 @@ class Grid {
   constructor(game) {
     this.game = game;
 
-    this.grid = document.createElement("table");
     const main = document.getElementById("main");
+    const div = document.createElement("div");
+    div.id = "grid-container";
+    main.appendChild(div);
+    this.grid = document.createElement("table");
     this.grid.id = "grid";
-    main.appendChild(this.grid);
+    div.appendChild(this.grid);
 
     this.build();
   }
@@ -18,10 +21,15 @@ class Grid {
   build() {
     for (let i = 0; i < 5; i++) {
       let row = this.grid.appendChild(document.createElement("tr"));
-      for (let j = 0; j < 3; j++) {
+      for (let j = 0; j < 9; j++) {
         let cell = row.appendChild(document.createElement("td"));
         const posArr = [j, i];
         const posStr = posArr.join();
+        if (j > 2) {
+          cell.className = "out-of-bounds";
+        } else {
+          cell.className = "placeable";
+        }
 
         cell.addEventListener("click", e => {
 

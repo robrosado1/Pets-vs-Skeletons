@@ -11,6 +11,8 @@ body {
   background-image: url("images/lawn.png");
   background-size: 480px 365px;
   display: block;
+  position: relative;
+  border: 1px solid green;
 }
 
 #title {
@@ -19,16 +21,22 @@ body {
   font-weight: bold;
 }
 
+#grid-container {
+  position: absolute;
+  height: auto;
+  width: -webkit-fill-available;
+  top: 249px;
+  display: flex;
+  justify-content: center;
+}
+
 table {
   border-spacing: 0px;
 }
 
 #grid {
-  position: relative;
-  top: -359px;
-  left: 495px;
   background-color: transparent;
-  width: 165px;
+  width: 480px;
   height: 335px;
 }
 
@@ -37,9 +45,14 @@ table {
   color: transparent;
 }
 
-#grid td:hover {
+#grid td.placeable:hover {
   box-shadow: 2px 2px 5px yellow inset, -2px -2px 5px yellow inset;
 }
+
+#grid td.out-of-bounds:hover {
+  box-shadow: 2px 2px 5px red inset, -2px -2px 5px red inset;
+}
+
 
 #game-over, #game-over-overlay {
     margin: auto;

@@ -45,6 +45,10 @@ class Game {
 
   addPets(pos, key) {
     if (this.score >= 10) {
+      if (pos[0] > 2) {
+        console.log("Out of Bounds!");
+        return;
+      }
       if (this.gridSpaces[key] === undefined) {
         this.score -= 10;
         this.add(new Cat({
@@ -147,7 +151,7 @@ class Game {
       this.blasts = [];
       this.pets = [];
       document.getElementById("game-over-score").innerHTML = `Your score was ${this.score} points!`
-      // this.over = false;
+      this.over = false;
       document.getElementById('play-again').addEventListener('click', () => {
         location.reload();
       });
