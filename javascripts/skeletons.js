@@ -42,7 +42,7 @@ class Skeleton extends Entity {
 
     if (this.x < -(this.width)) {
       this.remove();
-      this.game.gameOver = true;
+      this.game.over = true;
     }
   }
 

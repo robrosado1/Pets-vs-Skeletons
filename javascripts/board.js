@@ -18,8 +18,11 @@ class Board {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  initialize();
+});
+
+function initialize() {
   const game = new Game();
   new Grid(game);
   new Board(game).start();
-
-});
+}

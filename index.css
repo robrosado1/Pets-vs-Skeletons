@@ -13,7 +13,7 @@ body {
   display: block;
 }
 
-#scoreboard {
+#title {
   text-align: center;
   font-size: 48px;
   font-weight: bold;
@@ -39,4 +39,51 @@ table {
 
 #grid td:hover {
   box-shadow: 2px 2px 5px yellow inset, -2px -2px 5px yellow inset;
+}
+
+#game-over, #game-over-overlay {
+    margin: auto;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: none;
+}
+
+#game-over-overlay {
+    background-color: black;
+    opacity: .5;
+    height: auto;
+    width: auto;
+}
+
+#game-over {
+    height: 360px;
+    width: 480px;
+    text-align: center;
+    color: white;
+    flex-direction: column;
+}
+
+#game-over h1 {
+    font-size: 3em;
+    font-family: sans-serif;
+    margin: 15px auto;
+}
+
+span {
+  margin-bottom: 15px;
+  font-size: 36px;
+  font-weight: bold;
+  font-family: cursive;
+}
+
+#game-over button {
+    font-size: 1.5em;
+    margin: 0 auto;
+    font-family: monospace;
 }

@@ -6,7 +6,16 @@
     <title>Pets vs Skeletons</title>
   </head>
   <body id="main">
-    <h1 id="scoreboard"></h1>
+    <h1 id="title">Pets vs Skeletons</h1>
+    <div id="game-over-overlay">
+    </div>
+
+    <div id="game-over">
+      <h1>GAME OVER</h1>
+      <span id="game-over-score"></span>
+      <button id="play-again">Play Again</button>
+    </div>
+
     <canvas id="canvas" width="480" height="360"></canvas>
     <script type="text/javascript" src="javascripts/grid.js"></script>
     <script type="text/javascript" src="javascripts/entity.js"></script>

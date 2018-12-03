@@ -7,7 +7,7 @@ class Game {
     this.gridSpaces = {};
     this.NUM_SKELLYS = 10;
     this.ROWS = [0, 1, 2, 3, 4].map(row => row * 64);
-    this.gameOver = false;
+    this.over = false;
     this.addEnemies();
     this.time = Date.now() / 1000;
   }
@@ -134,17 +134,23 @@ class Game {
   }
 
   step() {
-    document.getElementById("scoreboard").innerHTML = `Score: ${this.score}`
-    this.over();
+    this.endGame();
     this.checkProximity();
     this.checkCollisions();
     this.draw();
   }
 
-  over() {
-    if (this.gameOver) {
-      document.getElementById("scoreboard").innerHTML = `Game Over!\nFinal Score: ${this.score}`;
-      return;
+  endGame() {
+    if (this.over) {
+      document.getElementById('game-over').style.display = 'flex';
+      document.getElementById('game-over-overlay').style.display = 'block';
+      this.blasts = [];
+      this.pets = [];
+      document.getElementById("game-over-score").innerHTML = `Your score was ${this.score} points!`
+      // this.over = false;
+      document.getElementById('play-again').addEventListener('click', () => {
+        location.reload();
+      });
     }
   }
 }
