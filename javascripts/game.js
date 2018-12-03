@@ -10,6 +10,8 @@ class Game {
     this.over = false;
     this.addEnemies();
     this.time = Date.now() / 1000;
+    this.streak = 0;
+    // this.addEnemies();
   }
 
   add(entity) {
@@ -50,7 +52,7 @@ class Game {
         return;
       }
       if (this.gridSpaces[key] === undefined) {
-        this.score -= 10;
+        this.score -= 50;
         this.add(new Cat({
           pos: pos,
           game: this
@@ -104,8 +106,9 @@ class Game {
   }
 
   draw() {
+    document.getElementById("score").innerHTML = `SCORE: ${this.score}`;
     const now = Date.now() / 1000;
-    if (now - this.time >= 2) {
+    if (now - this.time >= this.difficulty(this.streak)) {
       this.addEnemies();
       this.time = now;
     }
@@ -146,6 +149,7 @@ class Game {
 
   endGame() {
     if (this.over) {
+      document.getElementById("score").style.display = "none";
       document.getElementById('game-over').style.display = 'flex';
       document.getElementById('game-over-overlay').style.display = 'block';
       this.blasts = [];
@@ -155,6 +159,23 @@ class Game {
       document.getElementById('play-again').addEventListener('click', () => {
         location.reload();
       });
+    }
+  }
+
+  difficulty(seconds) {
+    switch (this.streak) {
+      case this.streak < 5:
+        return 5;
+      case this.streak < 10:
+        return 3;
+      case this.streak < 15:
+        return 2;
+      case this.streak < 25:
+        return 1;
+      case this.streak >= 25:
+        return 0.5;
+      default:
+        5;
     }
   }
 }

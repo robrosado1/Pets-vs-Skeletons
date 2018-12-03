@@ -28,12 +28,12 @@ class Skeleton extends Entity {
     this.frameCount++;
 
     if (this.frameCount < 10) {
-      this.render(this.walkCycle[this.currFrameIndex], 1, this.x, this.y);
+      this.render(7 - this.walkCycle[this.currFrameIndex], 1, this.x, this.y);
       return;
     }
     this.frameCount = 0;
     this.x -= this.speed;
-    this.render(this.walkCycle[this.currFrameIndex], 1, this.x, this.y);
+    this.render(7 - this.walkCycle[this.currFrameIndex], 1, this.x, this.y);
     this.currFrameIndex++;
 
     if (this.currFrameIndex >= this.walkCycle.length) {
@@ -50,17 +50,19 @@ class Skeleton extends Entity {
     this.frameCount++;
 
     if (this.frameCount < 10) {
-      this.render(this.deathCycle[this.currFrameIndex], 3, this.x, this.y);
+      this.render(7 - this.deathCycle[this.currFrameIndex], 3, this.x, this.y);
       return;
     }
 
     this.frameCount = 0;
-    this.render(this.deathCycle[this.currFrameIndex], 3, this.x, this.y);
+    this.render(7 - this.deathCycle[this.currFrameIndex], 3, this.x, this.y);
     this.currFrameIndex++;
 
     if (this.currFrameIndex >= this.deathCycle.length) {
-      this.game.score += 10;
       this.remove();
+      this.game.score += 10;
+      this.game.streak += 1;
+
     }
   }
 }

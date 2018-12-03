@@ -100,3 +100,25 @@ span {
     margin: 0 auto;
     font-family: monospace;
 }
+
+#score-container {
+  position: absolute;
+  width: -webkit-fill-available;
+  display: flex;
+  justify-content: center;
+  top: 238px;
+  z-index: 10;
+}
+
+#score {
+  font-size: 14px;
+  color: mediumblue;
+  font-family: sans-serif;
+  margin: 0;
+  margin-left: 401px;
+  background-color: seashell;
+  background-color: seashell;
+  border: 1px solid seashell;
+  padding: 2px;
+  border-radius: 3px;
+}
