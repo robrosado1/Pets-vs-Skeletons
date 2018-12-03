@@ -20,10 +20,12 @@ class Grid {
       let row = this.grid.appendChild(document.createElement("tr"));
       for (let j = 0; j < 3; j++) {
         let cell = row.appendChild(document.createElement("td"));
-        cell.innerHTML = `${i},${j}`;
-        cell.className = "free";
-        cell.addEventListener("click", () => {
-          const posArr = toArray(cell.innerHTML);
+        const posArr = [j, i];
+        const posStr = posArr.join();
+
+        cell.addEventListener("click", e => {
+
+          this.game.addPets(posArr, posStr);
           console.log(posArr);
         });
       }

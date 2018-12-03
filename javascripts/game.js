@@ -3,13 +3,13 @@ class Game {
     this.enemies = [];
     this.pets = [];
     this.blasts = [];
-    this.score = 0;
+    this.score = 50;
+    this.gridSpaces = {};
     this.NUM_SKELLYS = 10;
     this.ROWS = [0, 1, 2, 3, 4].map(row => row * 64);
     this.gameOver = false;
-    // this.addEnemies();
+    this.addEnemies();
     this.time = Date.now() / 1000;
-    this.addPets();
   }
 
   add(entity) {
@@ -27,10 +27,6 @@ class Game {
   addEnemies() {
     if (this.enemies.length < this.NUM_SKELLYS) {
       const y = this.ROWS[Math.floor(Math.random() * 5)];
-      // if (y === undefined) {
-      //   this.addEnemies();
-      //   return;
-      // }
       this.add(new Skeleton({
         game: this,
         pos: [canvas.width, y]
@@ -39,23 +35,29 @@ class Game {
   }
 
   addBlasts(sourceEntity) {
-    const x = (sourceEntity.pos[0] + (sourceEntity.width / 3));
-    const y = sourceEntity.pos[1];
+    const x = (sourceEntity.x + (sourceEntity.width / 3));
+    const y = sourceEntity.y;
     this.add(new Blast({
-      game: this,
-      pos: [x, y + 20]
+      pos: [x, y + 20],
+      game: this
     }));
   }
 
-  addPets(pos) {
-    // if (pos.currentTarget.className === "free") {
-    // }
-    // for (let i = 0; i < this.ROWS.length; i++) {
-    //   this.add(new Cat({
-    //     pos: [-5, this.ROWS[i]],
-    //     game: this
-    //   }));
-    // }
+  addPets(pos, key) {
+    if (this.score >= 10) {
+      if (this.gridSpaces[key] === undefined) {
+        this.score -= 10;
+        this.add(new Cat({
+          pos: pos,
+          game: this
+        }));
+        this.gridSpaces[key] = "taken";
+      } else {
+        console.log("This space is already taken!");
+      }
+    } else {
+      console.log("You don't have enough points for this!");
+    }
   }
 
   allEntities() {
@@ -74,7 +76,6 @@ class Game {
         }
         if (ent1.didCollideWith(ent2)) {
           if (ent1.collisionWith(ent2)) {
-            // debugger
           };
         }
       }
@@ -99,11 +100,11 @@ class Game {
   }
 
   draw() {
-    // const now = Date.now() / 1000;
-    // if (now - this.time >= 2) {
-    //   this.addEnemies();
-    //   this.time = now;
-    // }
+    const now = Date.now() / 1000;
+    if (now - this.time >= 2) {
+      this.addEnemies();
+      this.time = now;
+    }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.allEntities().forEach(entity => {
       entity.draw();
@@ -111,16 +112,20 @@ class Game {
   }
 
   isOutOfBounds(pos) {
-    return (pos[0] > canvas.width || pos[1] > canvas.height) ||
-      (pos[0] < 0 || pos[1] < 0);
+    const x = pos[0];
+    const y = pos[1];
+    return (x > canvas.width || y > canvas.height) ||
+      (x < 0 || y < 0);
   }
 
   remove(entity) {
     if (entity instanceof Skeleton) {
       this.enemies.splice(this.enemies.indexOf(entity), 1);
     } else if (entity instanceof Cat) {
-      // debugger
+
+      const key = entity.pos.join();
       this.pets.splice(this.pets.indexOf(entity), 1);
+      this.gridSpaces[key] = undefined;
     } else if (entity instanceof Blast) {
       this.blasts.splice(this.blasts.indexOf(entity), 1);
     } else {
@@ -142,5 +147,4 @@ class Game {
       return;
     }
   }
-
 }

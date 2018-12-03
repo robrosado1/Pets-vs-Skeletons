@@ -23,8 +23,3 @@ document.addEventListener("DOMContentLoaded", () => {
   new Board(game).start();
 
 });
-
-canvas.addEventListener("click", e => {
-  console.log(`X: ${e.clientX}`);
-  console.log(`Y: ${e.clientY}`);
-});

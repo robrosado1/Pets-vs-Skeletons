@@ -17,7 +17,7 @@ class Entity {
   }
 
   inProximityOf(otherEntity) {
-    return (this.pos[0] + 300 >= otherEntity.pos[0]) && this.latMatchWith(otherEntity);
+    return (this.x + 300 >= otherEntity.x) && this.latMatchWith(otherEntity);
   }
 
   proximityWith(otherEntity) {
@@ -51,19 +51,15 @@ class Entity {
   }
 
   latMatchWith(otherEntity) {
-    // return this.pos[1] <= otherEntity.pos[1] &&
-    //   (this.pos[1] + this.height) > otherEntity.pos[1];
-    const rowCenterLine = ((this.pos[1] / 64) * 64) + 32;
-    return (this.pos[1] < rowCenterLine &&
-      (this.pos[1] + this.height > rowCenterLine )) &&
-      (otherEntity.pos[1] < rowCenterLine &&
-      (otherEntity.pos[1] + otherEntity.height > rowCenterLine));
+    const rowCenterLine = ((this.y / 64) * 64) + 32;
+    return (this.y < rowCenterLine &&
+      (this.y + this.height > rowCenterLine )) &&
+      (otherEntity.y < rowCenterLine &&
+      (otherEntity.y + otherEntity.height > rowCenterLine));
 
   }
 
   lonMatchWith(otherEntity) {
-    return this.pos[0] + (this.width * 0.6) >= otherEntity.pos[0] + (otherEntity.width / 3)
+    return this.x + (this.width * 0.6) >= otherEntity.x + (otherEntity.width / 3)
   }
 }
-
-// this.pos[0] + (2 * myWidth) >= (otherEntity.pos[0] + otherWidth)
