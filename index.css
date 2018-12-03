@@ -24,8 +24,8 @@ table {
 }
 
 #grid {
-  position: absolute;
-  top: 247px;
+  position: relative;
+  top: -359px;
   left: 495px;
   background-color: transparent;
   width: 165px;
