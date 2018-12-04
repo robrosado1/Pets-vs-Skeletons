@@ -3,7 +3,7 @@ class Game {
     this.enemies = [];
     this.pets = [];
     this.blasts = [];
-    this.score = 50;
+    this.score = 250;
     this.gridSpaces = {};
     this.NUM_SKELLYS = 10;
     this.ROWS = [0, 1, 2, 3, 4].map(row => row * 64);
@@ -46,7 +46,7 @@ class Game {
   }
 
   addPets(pos, key) {
-    if (this.score >= 10) {
+    if (this.score >= 50) {
       if (pos[0] > 2) {
         console.log("Out of Bounds!");
         return;
@@ -162,20 +162,31 @@ class Game {
     }
   }
 
-  difficulty(seconds) {
-    switch (this.streak) {
-      case this.streak < 5:
-        return 5;
-      case this.streak < 10:
-        return 3;
-      case this.streak < 15:
-        return 2;
-      case this.streak < 25:
-        return 1;
-      case this.streak >= 25:
-        return 0.5;
-      default:
-        5;
+  difficulty(streak) {
+    if (streak < 5) {
+      return 5;
+    } else if (streak < 10) {
+      return 3;
+    } else if (streak < 15) {
+      return 2;
+    } else if (streak < 20) {
+      return 1;
+    } else {
+      return 0.8;
     }
+    // switch (streak) {
+    //   case streak < 5:
+    //     return 5;
+    //   case streak < 10:
+    //     return 3;
+    //   case streak < 15:
+    //     return 2;
+    //   case streak < 25:
+    //     return 1;
+    //   case streak >= 25:
+    //     return 0.5;
+    //   default:
+    //     return 5;
+    // }
   }
 }

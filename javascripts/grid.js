@@ -30,11 +30,8 @@ class Grid {
         } else {
           cell.className = "placeable";
         }
-
         cell.addEventListener("click", e => {
-
           this.game.addPets(posArr, posStr);
-          console.log(posArr);
         });
       }
     }
