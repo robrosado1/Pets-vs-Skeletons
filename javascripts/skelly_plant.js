@@ -7,7 +7,7 @@ class SkellyPlant extends Entity {
     super(options);
     this.x = this.pos[0];
     this.y = this.pos[1] + 10;
-    this.health = 3;
+    this.health = 6;
     this.frameCount = 0;
     this.idleCycle = [0,1,2,3];
     this.deathCycle = [0, 1, 2, 3, 4, 5, 6, 7];

@@ -26,21 +26,17 @@ class Game {
 
   addEnemies() {
     const y = this.ROWS[Math.floor(Math.random() * 5)];
-    // this.add(new Skeleton({
-    //   game: this,
-    //   pos: [canvas.width, y]
-    // }));
-    this.add(new SkellyPlant({
+    this.add(new Skeleton({
       game: this,
-      pos: [3 * 70, y]
+      pos: [canvas.width, y]
     }));
   }
 
   addBlasts(sourceEntity) {
     const x = (sourceEntity.x + (sourceEntity.width / 3));
-    const y = sourceEntity.y;
+    const y = sourceEntity.y + 20;
     this.add(new Blast({
-      pos: [x, y + 20],
+      pos: [x, y],
       game: this
     }));
   }
@@ -109,7 +105,7 @@ class Game {
     document.getElementById("score").innerHTML = `SCORE: ${this.score}`;
     const now = Date.now() / 1000;
     if (now - this.time >= this.difficulty(this.streak)) {
-      // this.addEnemies();
+      this.addEnemies();
       this.time = now;
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);

@@ -1,4 +1,3 @@
-
 class Skeleton extends Entity {
   constructor(options) {
     options.source = './images/skeleton_monster.png';
@@ -11,14 +10,16 @@ class Skeleton extends Entity {
     this.health = 10;
     this.frameCount = 0;
     this.walkCycle = [0,1,2,3];
-    this.deathCycle = [0, 1, 2, 3, 4, 5, 6, 7];
+    this.deathCycle = [7, 6, 5, 4, 3, 2, 1, 0];
     this.currFrameIndex = 0;
     this.speed = 5;
     this.spawn =  Math.random() > 0.9;
+    this.isDead = false;
   }
 
   draw() {
     if (this.health < 1) {
+      this.isDead = true;
       this.death();
     } else {
       this.walk();
@@ -52,12 +53,12 @@ class Skeleton extends Entity {
     this.frameCount++;
 
     if (this.frameCount < 10) {
-      this.render(7 - this.deathCycle[this.currFrameIndex], 3, this.x, this.y);
+      this.render(this.deathCycle[this.currFrameIndex], 3, this.x, this.y);
       return;
     }
 
     this.frameCount = 0;
-    this.render(7 - this.deathCycle[this.currFrameIndex], 3, this.x, this.y);
+    this.render(this.deathCycle[this.currFrameIndex], 3, this.x, this.y);
     this.currFrameIndex++;
 
     if (this.currFrameIndex >= this.deathCycle.length) {

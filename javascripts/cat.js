@@ -21,7 +21,8 @@ class Cat extends Entity {
   }
 
   draw() {
-    if (this.isDead) {
+    if (this.health < 1) {
+      this.isDead = true;
       this.death();
     } else if (this.shootActive) {
       this.shoot();
@@ -49,6 +50,11 @@ class Cat extends Entity {
   shoot() {
     this.frameCount++;
 
+    if (this.shootActive === false) {
+      this.currFrameIndex = 0;
+      return;
+    }
+
     if (this.frameCount < 10) {
       this.render(this.shootCycle[this.currFrameIndex], 5, this.x, this.y);
       return;
@@ -71,7 +77,7 @@ class Cat extends Entity {
   death() {
     this.frameCount++;
 
-    if (this.frameCount < 10) {
+    if (this.frameCount < 15) {
       this.render(this.deathCycle[this.currFrameIndex], 4, this.x, this.y);
       return;
     }

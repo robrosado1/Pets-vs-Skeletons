@@ -55,12 +55,12 @@ class Pellet extends Entity {
     this.frameCount++;
     this.damage = 0;
 
-    if (this.frameCount < 5) {
-      this.render(this.strikeCycle[this.currFrameIndex], 6, this.x, this.y);
+    if (this.frameCount < 10) {
+      this.render(this.strikeCycle[this.currFrameIndex], 11, this.x, this.y);
       return;
     }
     this.frameCount = 0;
-    this.render(this.strikeCycle[this.currFrameIndex], 6, this.x, this.y);
+    this.render(this.strikeCycle[this.currFrameIndex], 11, this.x, this.y);
     this.currFrameIndex++;
 
     if (this.currFrameIndex >= this.strikeCycle.length) {

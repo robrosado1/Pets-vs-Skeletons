@@ -21,12 +21,15 @@ class Entity {
   }
 
   proximityWith(otherEntity) {
-    if ((this instanceof Cat && otherEntity instanceof Skeleton)
-      && !otherEntity.isDead) {
+    if (this instanceof Cat && otherEntity instanceof Skeleton) {
+      if (otherEntity.isDead) {
+        this.shootActive = false;
+      } else {
         this.shootActive = true;
+      }
     } else if (this instanceof Cat && otherEntity instanceof SkellyPlant){
       otherEntity.inRange = true;
-      // this.shootActive = true;
+      this.shootActive = true;
       return;
     }
   }
@@ -37,9 +40,8 @@ class Entity {
       this.strike = true;
       otherEntity.health -= this.damage;
     } else if (this instanceof Cat && otherEntity instanceof Skeleton) {
-      this.isDead = true;
+      this.health -= 10;
     } else if (this instanceof Cat && otherEntity instanceof Pellet) {
-      debugger
       otherEntity.strike = true;
       this.health -= otherEntity.damage;
     } else {
@@ -48,8 +50,8 @@ class Entity {
   }
 
   didCollideWith(otherEntity) {
-    const myWidth = this.width / 3;
-    const otherWidth = otherEntity.width / 3;
+    const lat = this.latMatchWith(otherEntity);
+    const long = this.lonMatchWith(otherEntity);
     return this.lonMatchWith(otherEntity) && this.latMatchWith(otherEntity);
   }
 
@@ -58,12 +60,12 @@ class Entity {
   }
 
   latMatchWith(otherEntity) {
-    const rowCenterLine = ((this.y / 64) * 64) + 32;
-    return (this.y < rowCenterLine &&
-      (this.y + this.height > rowCenterLine )) &&
-      (otherEntity.y < rowCenterLine &&
-      (otherEntity.y + otherEntity.height > rowCenterLine));
-
+    const rowUpperBound = (Math.floor(this.y / 64) * 64);
+    const rowLowerBound = rowUpperBound + 64;
+    return (this.y >= rowUpperBound &&
+      (this.y + (this.height / 2) <= rowLowerBound)) &&
+      (otherEntity.pos[1] >= rowUpperBound &&
+      (otherEntity.pos[1] + (otherEntity.height / 2) <= rowLowerBound))
   }
 
   lonMatchWith(otherEntity) {
