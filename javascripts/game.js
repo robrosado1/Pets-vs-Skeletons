@@ -5,7 +5,6 @@ class Game {
     this.blasts = [];
     this.score = 250;
     this.gridSpaces = {};
-    // this.NUM_SKELLYS = 10;
     this.ROWS = [0, 1, 2, 3, 4].map(row => row * 64);
     this.over = false;
     this.time = Date.now() / 1000;
@@ -18,7 +17,7 @@ class Game {
       this.enemies.push(entity);
     } else if (entity instanceof Cat) {
       this.pets.push(entity);
-    } else if (entity instanceof Blast) {
+    } else if (entity instanceof Blast || entity instanceof Pellet) {
       this.blasts.push(entity);
     } else {
       throw new Error("unknown entity");
@@ -26,13 +25,15 @@ class Game {
   }
 
   addEnemies() {
-    // if (this.enemies.length < this.NUM_SKELLYS) {
-      const y = this.ROWS[Math.floor(Math.random() * 5)];
-      this.add(new Skeleton({
-        game: this,
-        pos: [canvas.width, y]
-      }));
-    // }
+    const y = this.ROWS[Math.floor(Math.random() * 5)];
+    // this.add(new Skeleton({
+    //   game: this,
+    //   pos: [canvas.width, y]
+    // }));
+    this.add(new SkellyPlant({
+      game: this,
+      pos: [3 * 70, y]
+    }));
   }
 
   addBlasts(sourceEntity) {
@@ -108,7 +109,7 @@ class Game {
     document.getElementById("score").innerHTML = `SCORE: ${this.score}`;
     const now = Date.now() / 1000;
     if (now - this.time >= this.difficulty(this.streak)) {
-      this.addEnemies();
+      // this.addEnemies();
       this.time = now;
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -132,7 +133,7 @@ class Game {
       const key = entity.pos.join();
       this.pets.splice(this.pets.indexOf(entity), 1);
       this.gridSpaces[key] = undefined;
-    } else if (entity instanceof Blast) {
+    } else if (entity instanceof Blast || entity instanceof Pellet) {
       this.blasts.splice(this.blasts.indexOf(entity), 1);
     } else {
       throw new Error("unknown type of object");

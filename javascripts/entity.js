@@ -24,17 +24,24 @@ class Entity {
     if ((this instanceof Cat && otherEntity instanceof Skeleton)
       && !otherEntity.isDead) {
         this.shootActive = true;
-    } else {
-      return false;
+    } else if (this instanceof Cat && otherEntity instanceof SkellyPlant){
+      otherEntity.inRange = true;
+      // this.shootActive = true;
+      return;
     }
   }
 
   collisionWith(otherEntity) {
-    if (this instanceof Blast && otherEntity instanceof Skeleton) {
+    if (this instanceof Blast &&
+        (otherEntity instanceof Skeleton || otherEntity instanceof SkellyPlant)) {
       this.strike = true;
       otherEntity.health -= this.damage;
     } else if (this instanceof Cat && otherEntity instanceof Skeleton) {
       this.isDead = true;
+    } else if (this instanceof Cat && otherEntity instanceof Pellet) {
+      debugger
+      otherEntity.strike = true;
+      this.health -= otherEntity.damage;
     } else {
       return false;
     }
@@ -60,6 +67,7 @@ class Entity {
   }
 
   lonMatchWith(otherEntity) {
-    return this.x + (this.width * 0.6) >= otherEntity.x + (otherEntity.width / 3)
+    return this.x + (this.width * 0.6) >= otherEntity.x + (otherEntity.width / 3) &&
+      this.x + (this.width * 0.3) <= otherEntity.x + (otherEntity.width * 2 / 3)
   }
 }
