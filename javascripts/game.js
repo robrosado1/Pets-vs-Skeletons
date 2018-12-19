@@ -5,17 +5,16 @@ class Game {
     this.blasts = [];
     this.score = 250;
     this.gridSpaces = {};
-    this.NUM_SKELLYS = 10;
+    // this.NUM_SKELLYS = 10;
     this.ROWS = [0, 1, 2, 3, 4].map(row => row * 64);
     this.over = false;
-    this.addEnemies();
     this.time = Date.now() / 1000;
     this.streak = 0;
-    // this.addEnemies();
+    this.addEnemies();
   }
 
   add(entity) {
-    if (entity instanceof Skeleton) {
+    if (entity instanceof Skeleton || entity instanceof SkellyPlant) {
       this.enemies.push(entity);
     } else if (entity instanceof Cat) {
       this.pets.push(entity);
@@ -27,13 +26,13 @@ class Game {
   }
 
   addEnemies() {
-    if (this.enemies.length < this.NUM_SKELLYS) {
+    // if (this.enemies.length < this.NUM_SKELLYS) {
       const y = this.ROWS[Math.floor(Math.random() * 5)];
       this.add(new Skeleton({
         game: this,
         pos: [canvas.width, y]
       }));
-    }
+    // }
   }
 
   addBlasts(sourceEntity) {
@@ -126,7 +125,7 @@ class Game {
   }
 
   remove(entity) {
-    if (entity instanceof Skeleton) {
+    if (entity instanceof Skeleton || entity instanceof SkellyPlant) {
       this.enemies.splice(this.enemies.indexOf(entity), 1);
     } else if (entity instanceof Cat) {
 
@@ -172,21 +171,7 @@ class Game {
     } else if (streak < 20) {
       return 1;
     } else {
-      return 0.8;
+      return 0.7;
     }
-    // switch (streak) {
-    //   case streak < 5:
-    //     return 5;
-    //   case streak < 10:
-    //     return 3;
-    //   case streak < 15:
-    //     return 2;
-    //   case streak < 25:
-    //     return 1;
-    //   case streak >= 25:
-    //     return 0.5;
-    //   default:
-    //     return 5;
-    // }
   }
 }

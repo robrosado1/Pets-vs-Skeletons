@@ -14,6 +14,7 @@ class Skeleton extends Entity {
     this.deathCycle = [0, 1, 2, 3, 4, 5, 6, 7];
     this.currFrameIndex = 0;
     this.speed = 5;
+    this.spawn =  Math.random() > 0.9;
   }
 
   draw() {
@@ -43,6 +44,7 @@ class Skeleton extends Entity {
     if (this.x < -(this.width)) {
       this.remove();
       this.game.over = true;
+      this.game.addEnemies
     }
   }
 
@@ -62,6 +64,12 @@ class Skeleton extends Entity {
       this.remove();
       this.game.score += 10;
       this.game.streak += 1;
+      if (this.spawn) {
+        this.game.add(new SkellyPlant({
+          game: this.game,
+          pos: [this.x, this.y]
+        }));
+      }
 
     }
   }
