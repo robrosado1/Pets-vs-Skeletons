@@ -9,24 +9,26 @@ class Blast extends Entity {
     this.y = this.pos[1];
     this.health = 10;
     this.frameCount = 0;
-    this.fireCycle = [4,5,6,7];
+    this.flyCycle = [4,5,6,7];
     this.strikeCycle = [4,5,6];
     this.currFrameIndex = 0;
     this.startPos = this.x;
     this.speed = 2;
-    this.strike = false;
+    this.struck = false;
+    this.exploding = false;
     this.damage = 3;
   }
 
   draw() {
-    if (this.strike) {
+    if (this.struck) {
+      this.exploding = true;
       this.hit();
     } else {
-      this.fire();
+      this.fly();
     }
   }
 
-  fire() {
+  fly() {
     if (this.x - this.startPos >= 300) {
       this.remove();
     }
@@ -35,14 +37,14 @@ class Blast extends Entity {
     this.x += this.speed;
 
     if (this.frameCount < 10) {
-      this.render(this.fireCycle[this.currFrameIndex], 0, this.x, this.y);
+      this.render(this.flyCycle[this.currFrameIndex], 0, this.x, this.y);
       return;
     }
     this.frameCount = 0;
-    this.render(this.fireCycle[this.currFrameIndex], 0, this.x, this.y);
+    this.render(this.flyCycle[this.currFrameIndex], 0, this.x, this.y);
     this.currFrameIndex++;
 
-    if (this.currFrameIndex >= this.fireCycle.length) {
+    if (this.currFrameIndex >= this.flyCycle.length) {
       this.currFrameIndex = 0;
     }
 

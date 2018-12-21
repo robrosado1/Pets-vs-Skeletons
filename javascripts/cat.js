@@ -6,10 +6,8 @@ class Cat extends Entity {
     options.scale = 1.25;
     super(options);
     this.coord = this.pos;
-    this.x = this.coord[0];
-    this.y = this.coord[1];
-    this.x = this.x === 0 ? -5 : (this.x * 50) - 5;
-    this.y = this.y * 64;
+    this.x = this.coord[0] === 0 ? -5 : (this.coord[0] * 50) - 5;
+    this.y = this.coord[1] * 64;
     this.health = 10;
     this.frameCount = 0;
     this.idleCycle = [0,1,2,3];
@@ -32,6 +30,9 @@ class Cat extends Entity {
   }
 
   idle() {
+    if (this.currFrameIndex >= this.idleCycle.length) {
+      this.currFrameIndex = 0;
+    }
     this.frameCount++;
 
     if (this.frameCount < 10) {
@@ -49,11 +50,6 @@ class Cat extends Entity {
 
   shoot() {
     this.frameCount++;
-
-    if (this.shootActive === false) {
-      this.currFrameIndex = 0;
-      return;
-    }
 
     if (this.frameCount < 10) {
       this.render(this.shootCycle[this.currFrameIndex], 5, this.x, this.y);

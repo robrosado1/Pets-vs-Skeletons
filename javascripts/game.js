@@ -145,11 +145,11 @@ class Game {
 
   endGame() {
     if (this.over) {
+      this.blasts = [];
+      this.pets = [];
       document.getElementById("score").style.display = "none";
       document.getElementById('game-over').style.display = 'flex';
       document.getElementById('game-over-overlay').style.display = 'block';
-      this.blasts = [];
-      this.pets = [];
       document.getElementById("game-over-score").innerHTML = `Your score was ${this.score} points!`
       this.over = false;
       document.getElementById('play-again').addEventListener('click', () => {
@@ -162,13 +162,15 @@ class Game {
     if (streak < 5) {
       return 5;
     } else if (streak < 10) {
-      return 3;
+      return 4;
     } else if (streak < 15) {
-      return 2;
+      return 3;
     } else if (streak < 20) {
+      return 2;
+    } else if (streak < 25) {
       return 1;
     } else {
-      return 0.7;
+      return 0.8;
     }
   }
 }

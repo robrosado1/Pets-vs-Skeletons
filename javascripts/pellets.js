@@ -14,12 +14,12 @@ class Pellet extends Entity {
     this.currFrameIndex = 0;
     this.startPos = this.x;
     this.speed = 2;
-    this.strike = false;
+    this.struck = false;
     this.damage = 2;
   }
 
   draw() {
-    if (this.strike) {
+    if (this.struck) {
       this.hit();
     } else {
       this.fire();

@@ -28,8 +28,10 @@ class Entity {
         this.shootActive = true;
       }
     } else if (this instanceof Cat && otherEntity instanceof SkellyPlant){
+      if (!otherEntity.spawning) {
+        this.shootActive = true;
+      }
       otherEntity.inRange = true;
-      this.shootActive = true;
       return;
     }
   }
@@ -37,12 +39,20 @@ class Entity {
   collisionWith(otherEntity) {
     if (this instanceof Blast &&
         (otherEntity instanceof Skeleton || otherEntity instanceof SkellyPlant)) {
-      this.strike = true;
-      otherEntity.health -= this.damage;
+      if (otherEntity.isDead || otherEntity.spawning) {
+        if (this.exploding) {
+          this.struck = true;
+        } else {
+          this.struck = false;
+        }
+      } else {
+        this.struck = true;
+        otherEntity.health -= this.damage;
+      }
     } else if (this instanceof Cat && otherEntity instanceof Skeleton) {
       this.health -= 10;
     } else if (this instanceof Cat && otherEntity instanceof Pellet) {
-      otherEntity.strike = true;
+      otherEntity.struck = true;
       this.health -= otherEntity.damage;
     } else {
       return false;

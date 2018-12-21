@@ -13,13 +13,12 @@ class Skeleton extends Entity {
     this.deathCycle = [7, 6, 5, 4, 3, 2, 1, 0];
     this.currFrameIndex = 0;
     this.speed = 5;
-    this.spawn =  Math.random() > 0.9;
+    this.spawn =  Math.random() > 0.8;
     this.isDead = false;
   }
 
   draw() {
     if (this.health < 1) {
-      this.isDead = true;
       this.death();
     } else {
       this.walk();
@@ -53,6 +52,9 @@ class Skeleton extends Entity {
     this.frameCount++;
 
     if (this.frameCount < 10) {
+      if (this.currFrameIndex > 3) {
+        this.isDead = true;
+      }
       this.render(this.deathCycle[this.currFrameIndex], 3, this.x, this.y);
       return;
     }
@@ -71,7 +73,7 @@ class Skeleton extends Entity {
           pos: [this.x, this.y]
         }));
       }
-
+      return;
     }
   }
 }

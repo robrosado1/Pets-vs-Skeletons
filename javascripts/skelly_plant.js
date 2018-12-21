@@ -16,6 +16,7 @@ class SkellyPlant extends Entity {
     this.currFrameIndex = 0;
     this.spawning = true;
     this.inRange = false;
+    this.isDead = false;
   }
 
   draw() {
@@ -88,12 +89,19 @@ class SkellyPlant extends Entity {
   }
 
   death() {
+    if (this.currFrameIndex >= this.deathCycle.length) {
+      this.currFrameIndex = 0;
+    }
+
     this.frameCount++;
     if (this.currFrameIndex > this.deathCycle.length) {
       this.currFrameIndex = 0;
     }
 
     if (this.frameCount < 8) {
+      if (this.currFrameIndex > 3) {
+        this.isDead = true;
+      }
       this.render(this.deathCycle[this.currFrameIndex], 4, this.x, this.y);
       return;
     }
@@ -106,6 +114,7 @@ class SkellyPlant extends Entity {
       this.remove();
       this.game.score += 10;
       this.game.streak += 1;
+      return;
     }
   }
 }
