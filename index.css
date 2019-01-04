@@ -9,7 +9,7 @@ body {
 
 #canvas {
   margin: 0 auto;
-  margin-top: 120px;
+  margin-top: 60px;
   padding: 0;
   background-color: transparent;
   background-image: url("images/lawn.png");
@@ -35,7 +35,7 @@ body {
   position: absolute;
   height: auto;
   width: -webkit-fill-available;
-  top: 249px;
+  top: 190px;
   display: flex;
   justify-content: center;
 }
@@ -63,13 +63,57 @@ table {
   box-shadow: 2px 2px 5px red inset, -2px -2px 5px red inset;
 }
 
+.title-card {
+  position: absolute;
+  left: 257px;
+  top: 176px;
+  z-index: 2;
+  height: 360px;
+  text-align: center;
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: bisque;
+  opacity: 0.8;
+}
 
-#game-over, #game-over-overlay {
+.title-card h1 {
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 48px;
+  color: crimson;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  opacity: 1;
+}
+
+.buttons button {
+  height: 64px;
+  width: 120px;
+  font-size: 36px;
+  font-weight: 700;
+  font-family: monospace;
+  opacity: 1;
+  background-color: darkolivegreen;
+  color: white;
+  border-radius: 10px;
+}
+
+#start-game:hover, #instructions:hover {
+  background-color: darkgreen;
+  cursor: pointer;
+}
+
+#game-over-message, #game-over-overlay {
     margin: auto;
     width: auto;
     height: auto;
     position: absolute;
-    top: 0;
+    top: -29px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -84,15 +128,16 @@ table {
     width: auto;
 }
 
-#game-over {
+#game-over-message {
     height: 360px;
     width: 480px;
     text-align: center;
     color: white;
     flex-direction: column;
+    justify-content: center;
 }
 
-#game-over h1 {
+#game-over-message h1 {
     font-size: 3em;
     font-family: sans-serif;
     margin: 15px auto;
@@ -105,7 +150,7 @@ span {
   font-family: cursive;
 }
 
-#game-over button {
+#game-over-message button {
     font-size: 1.5em;
     margin: 0 auto;
     font-family: monospace;
@@ -116,11 +161,12 @@ span {
   width: -webkit-fill-available;
   display: flex;
   justify-content: center;
-  top: 190px;
+  top: 122px;
   z-index: 10;
 }
 
 #score {
+  display: none;
   font-size: 30px;
   color: brown;
   font-family: sans-serif;

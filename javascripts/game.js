@@ -4,11 +4,13 @@ class Game {
     this.pets = [];
     this.blasts = [];
     this.score = 250;
+    this.lastScore = 250;
     this.gridSpaces = {};
     this.ROWS = [0, 1, 2, 3, 4].map(row => row * 64);
     this.over = false;
     this.time = Date.now() / 1000;
     this.streak = 0;
+    document.getElementById("score").innerHTML = "SCORE: 250";
     this.addEnemies();
   }
 
@@ -102,7 +104,10 @@ class Game {
   }
 
   draw() {
-    document.getElementById("score").innerHTML = `SCORE: ${this.score}`;
+    if (this.score !== this.lastScore) {
+      document.getElementById("score").innerHTML = `SCORE: ${this.score}`;
+      this.lastScore = this.score;
+    }
     const now = Date.now() / 1000;
     if (now - this.time >= this.difficulty(this.streak)) {
       this.addEnemies();
@@ -148,11 +153,11 @@ class Game {
       this.blasts = [];
       this.pets = [];
       document.getElementById("score").style.display = "none";
-      document.getElementById('game-over').style.display = 'flex';
-      document.getElementById('game-over-overlay').style.display = 'block';
+      document.getElementById('game-over-message').style.display = "flex";
+      document.getElementById('game-over-overlay').style.display = "block";
       document.getElementById("game-over-score").innerHTML = `Your score was ${this.score} points!`
       this.over = false;
-      document.getElementById('play-again').addEventListener('click', () => {
+      document.getElementById('play-again').addEventListener("click", () => {
         location.reload();
       });
     }
