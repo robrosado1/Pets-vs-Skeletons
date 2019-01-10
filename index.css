@@ -65,7 +65,7 @@ table {
 
 .title-card {
   position: absolute;
-  left: 257px;
+  left: calc(50% - 240px);
   top: 176px;
   z-index: 2;
   height: 360px;
@@ -103,7 +103,7 @@ table {
   border-radius: 10px;
 }
 
-#start-game:hover, #instructions:hover {
+#start-game:hover, #learn:hover {
   background-color: darkgreen;
   cursor: pointer;
 }
@@ -134,7 +134,6 @@ table {
     text-align: center;
     color: white;
     flex-direction: column;
-    justify-content: center;
 }
 
 #game-over-message h1 {
@@ -193,4 +192,53 @@ span {
 .fas, .fab {
   font-size: 48px;
   color: black;
+}
+
+#instructions {
+  display: none;
+  position: absolute;
+  top: 176px;
+  z-index: 3;
+  width: 478px;
+  left: calc(50% - 239px);
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.help-title {
+  text-align: center;
+  margin: 0px;
+  font-size: 24px;
+  font-style: italic;
+  font-family: monospace;
+  font-weight: bold;
+  text-decoration: underline;
+  text-transform: uppercase;
+  text-underline-position: under;
+}
+
+.instructions {
+  font-weight: bold;
+  font-family: sans-serif;
+  margin: 10px 0px 0px;
+}
+
+#back {
+  position: relative;
+  left: 92%;
+  z-index: 4;
+  background-color: mediumblue;
+  border-radius: 100%;
+  border-color: #222;
+  top: -15px;
+}
+
+#back:hover {
+  cursor: pointer;
+  background-color: mediumslateblue;
+}
+
+#back i {
+  font-size: 28px;
+  color: yellow;
 }

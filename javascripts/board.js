@@ -1,6 +1,7 @@
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 const grid = document.getElementById("grid");
+const title = document.getElementById("title-card");
 
 class Board {
   constructor(game) {
@@ -16,12 +17,7 @@ class Board {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("start-game").addEventListener("click", () => {
-    initialize();
-  });
-  document.getElementById("instructions").addEventListener("click", () => {
-    document.getElementById("title-card").innerHTML = "What."
-  });
+  startup();
 });
 
 function initialize() {
@@ -29,5 +25,21 @@ function initialize() {
   new Grid(game);
   const board = new Board(game).start();
   document.getElementById("score").style.display = "block";
-  document.getElementById("title-card").style.display = "none";
+  title.style.display = "none";
+}
+
+function startup() {
+  document.getElementById("start-game").addEventListener("click", () => {
+    initialize();
+  });
+  document.getElementById("learn").addEventListener("click", () => {
+    const tc = title.innerHTML;
+    title.innerHTML = "";
+    document.getElementById("instructions").style.display = "block";
+    document.getElementById("back").addEventListener("click", () => {
+      document.getElementById("instructions").style.display = "none";
+      title.innerHTML = tc;
+      startup();
+    });
+  });
 }

@@ -130,7 +130,6 @@ class Game {
     if (entity instanceof Skeleton || entity instanceof SkellyPlant) {
       this.enemies.splice(this.enemies.indexOf(entity), 1);
     } else if (entity instanceof Cat) {
-
       const key = entity.pos.join();
       this.pets.splice(this.pets.indexOf(entity), 1);
       this.gridSpaces[key] = undefined;
@@ -153,9 +152,9 @@ class Game {
       this.blasts = [];
       this.pets = [];
       document.getElementById("score").style.display = "none";
-      document.getElementById('game-over-message').style.display = "flex";
+      document.getElementById('game-over-message').style.display = "block";
       document.getElementById('game-over-overlay').style.display = "block";
-      document.getElementById("game-over-score").innerHTML = `Your score was ${this.score} points!`
+      document.getElementById("game-over-score").innerHTML = `Your score was ${this.score} points!`;
       this.over = false;
       document.getElementById('play-again').addEventListener("click", () => {
         location.reload();
