@@ -99,6 +99,7 @@ All the entities that actually instantiated during the game have similar `constr
 
 [sprite_map]: https://github.com/robrosado1/Pets-vs-Skeletons/blob/master/images/skeleton_flying(64x64).png "sprite map"
 ![alt-text][sprite_map]
+
 All "living" (or undead) entities have a "death" cycle. Upon which, they actually call the `Game` class to use its own `remove` method to delete them from the collection of entities currently present in the game. This also happens whenever an entity leaves the viewport of the canvas so processing power is not wasted on entities that will not be seen again.
 
 For immobile entities like `Cats` and `SkellyPlants`, they have cycles like "shoot" where they motion to release `Blasts` and `Pellets`, respectively, but when they do they also trigger those entities to instantiate at their own coordinates. Similarly, `Skeletons` have a chance to spawn `SkellyPlants` upon death.
