@@ -67,14 +67,17 @@ As previously stated, this game relies heavily on the practice of Prototypal Inh
 
 All entities of the game regardless of origin inherit from the `Entity` class. This is true for all instances of `Cat`, `Skeleton`, `SkellyPlant` and even the projectiles `Blast` and `Pellet`. Because all of these entities are rendered as "sprites", the `Entity` class provides a `render` method that uses the Canvas context's `drawImage` method and refactors it for simpler use.
 
-`render(frameRow, frameCol, canvasX, canvasY) {
+```
+render(frameRow, frameCol, canvasX, canvasY) {
   ctx.drawImage(this.image, frameRow * this.width, frameCol * this.height,
     this.width, this.height, canvasX, canvasY, this.scaledWidth, this.scaledHeight);
-}`
+}
+```
 
 Aside from rendering, the `Game` class relies on this `Entity` class to provide necessary state information for each entity, namely proximity and collision state for determining what two entities and either entities specific response.
 
-`latMatchWith(otherEntity) {
+```
+latMatchWith(otherEntity) {
   const rowUpperBound = (Math.floor(this.y / 64) * 64);
   const rowLowerBound = rowUpperBound + 64;
   return (this.y >= rowUpperBound &&
@@ -86,16 +89,16 @@ Aside from rendering, the `Game` class relies on this `Entity` class to provide 
 lonMatchWith(otherEntity) {
   return this.x + (this.width * 0.6) >= otherEntity.x + (otherEntity.width / 3) &&
     this.x + (this.width * 0.3) <= otherEntity.x + (otherEntity.width * 2 / 3)
-}`
+}
+```
 
 The above code snippet is the primary logic used for the one of the most important elements of this game: collisions. Because of the tower defense style of this game and the grid-based coordinate system, collision as well as proximity can be verified by checking first if two entities are in the same row with `latMatchWith(otherEntity)` and then their horizontal distance from each other using `lonMatchWith(otherEntity)`. Without this logic, there would be no way to defeat Skeletons and earn points so it was incredibly important to make sure these methods behaved appropriately.
 
 ### Cats and Skeletons and Projectiles
 All the entities that actually instantiated during the game have similar `constructor` methods which pull from specific sprite maps source images and have their own specific position coordinates, health, etc. But each entity also has multiple "cycles" for rendering specific actions which is why the parent class' `render` method had to be refactored. Sprite maps like the one pictured below show different sets of animation frames that an entity can go through (ie. "attack") which are separated by row. By refactoring the `render` method, I was able to isolate those rows for rendering specific animations for specific actions.
 
-[sprite_map]: https://github.com/robrosado1/Pets-vs-Skeletons/images/skeleton_flying(64x64).png "sprite map"
+[sprite_map]: https://github.com/robrosado1/Pets-vs-Skeletons/blob/master/images/skeleton_flying(64x64).png "sprite map"
 ![alt-text][sprite_map]
-
 All "living" (or undead) entities have a "death" cycle. Upon which, they actually call the `Game` class to use its own `remove` method to delete them from the collection of entities currently present in the game. This also happens whenever an entity leaves the viewport of the canvas so processing power is not wasted on entities that will not be seen again.
 
 For immobile entities like `Cats` and `SkellyPlants`, they have cycles like "shoot" where they motion to release `Blasts` and `Pellets`, respectively, but when they do they also trigger those entities to instantiate at their own coordinates. Similarly, `Skeletons` have a chance to spawn `SkellyPlants` upon death.
