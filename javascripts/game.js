@@ -44,24 +44,32 @@ class Game {
   }
 
   addPets(pos, key) {
-    if (this.score >= 50) {
-      if (pos[0] > 2) {
-        console.log("Out of Bounds!");
-        return;
-      }
-      if (this.gridSpaces[key] === undefined) {
-        this.score -= 50;
-        this.add(new Cat({
-          pos: pos,
-          game: this
-        }));
-        this.gridSpaces[key] = "taken";
-      } else {
-        console.log("This space is already taken!");
-      }
+    if (pos[0] > 2) {
+      this.executeWarning("Can't place here! - Out of Bounds");
     } else {
-      console.log("You don't have enough points for this!");
+      if (this.gridSpaces[key] === undefined) {
+        if (this.score >= 50) {
+          this.score -= 50;
+          this.add(new Cat({
+            pos: pos,
+            game: this
+          }));
+          this.gridSpaces[key] = "taken";
+        } else {
+          this.executeWarning("You don't have enough points for this!");
+        }
+      } else {
+        this.executeWarning("Can't place here! - This space is already taken!");
+      }
     }
+  }
+
+  executeWarning(string) {
+    document.getElementById("warning").innerHTML = "";
+    document.getElementById("warning").classList.remove("hide");
+    document.getElementById("warning").offsetWidth;
+    document.getElementById("warning").innerHTML = string;
+    document.getElementById("warning").classList.add("hide");
   }
 
   allEntities() {
