@@ -22,9 +22,11 @@ This file is also where the `initialize` and `startup` methods live. The `startu
 ### The `Grid`
 In `grid.js`, a `table` DOM element is created to cover the Canvas with cells in a grid of 5 rows by 9 columns. The `Grid` is immediately built upon initialization. Each cell has its coordinate values mapped as it is built to allow for determining "valid" cells for placing `Cats`. The user interacts with the `Grid` by clicking a cell where they would like to place a `Cat`.
 
-`cell.addEventListener("click", e => {
+```javascript
+cell.addEventListener("click", e => {
   this.game.addPets(posArr, posStr);
-});`
+});
+```
 
 This is why the `Game` is passed as an argument to `Grid`. The `Grid` needs to be able to pass its coordinate information to the `Game` for accurate placement.
 
