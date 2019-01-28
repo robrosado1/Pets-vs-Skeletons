@@ -67,7 +67,7 @@ As previously stated, this game relies heavily on the practice of Prototypal Inh
 
 All entities of the game regardless of origin inherit from the `Entity` class. This is true for all instances of `Cat`, `Skeleton`, `SkellyPlant` and even the projectiles `Blast` and `Pellet`. Because all of these entities are rendered as "sprites", the `Entity` class provides a `render` method that uses the Canvas context's `drawImage` method and refactors it for simpler use.
 
-```
+```javascript
 render(frameRow, frameCol, canvasX, canvasY) {
   ctx.drawImage(this.image, frameRow * this.width, frameCol * this.height,
     this.width, this.height, canvasX, canvasY, this.scaledWidth, this.scaledHeight);
@@ -76,7 +76,7 @@ render(frameRow, frameCol, canvasX, canvasY) {
 
 Aside from rendering, the `Game` class relies on this `Entity` class to provide necessary state information for each entity, namely proximity and collision state for determining what two entities and either entities specific response.
 
-```
+```javascript
 latMatchWith(otherEntity) {
   const rowUpperBound = (Math.floor(this.y / 64) * 64);
   const rowLowerBound = rowUpperBound + 64;
